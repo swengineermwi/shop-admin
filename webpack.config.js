@@ -12,6 +12,7 @@ module.exports = {
   ],
   devServer: {
     static: './dist',
+    hot: false,
   },
   module: {
     rules: [
@@ -27,6 +28,9 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../../shop-admin'),
+  },
+  experiments: {
+    topLevelAwait: true
   },
 };

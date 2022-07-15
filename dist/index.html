@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script defer src="main.js"></script>
+<script defer src="main.js"></script></head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../assets/css/style.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<body>
+  <main class="position-relative">
+    <header class="container padding-y-sm">
+      <div class="grid items-center">
+        <div class="col-6">
+          <i class="material-icons md-48">shopping_bag</i>
+        </div>
+        <div class="col-6 flex justify-end">
+          <button class="btn btn--primary btn--lg material-icons" aria-controls="modal-select">add</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="grid gap-sm" id="shop"></div>
+    </div>
+  </main>
+
+  <div class="modal modal--animate-scale bg bg-opacity-90% flex flex-center padding-md js-modal" id="modal-select">
+    <div class="modal__content max-width-xs max-height-100% overflow-auto padding-md text-center" role="alertdialog"
+      aria-labelledby="modal-select-title" aria-describedby="">
+      <p class="color-contrast-medium margin-bottom-xs" id="modal-select-title">Select an option:</p>
+
+      <ul class="full-screen-select flex flex-column gap-xxs js-full-screen-select" role="listbox" id="actions">
+        <li><button class="btn width-100% full-screen-select__option" role="option" id="action_product">Product</button>
+        </li>
+        <li><button class="btn width-100% full-screen-select__option" role="option"
+            id="action_category">Category</button>
+        </li>
+      </ul>
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Close modal window</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="3" x2="21" y2="21" />
+          <line x1="21" y1="3" x2="3" y2="21" />
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal modal--animate-scale bg bg-opacity-90% flex flex-center padding-md js-modal" id="categories">
+    <div class="modal__content max-width-xs max-height-100% overflow-auto padding-md text-center" role="alertdialog"
+      aria-labelledby="modal-select-title">
+      <ul class="full-screen-select flex flex-column gap-xxs js-full-screen-select" role="listbox" id="categories">
+
+      </ul>
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Close modal window</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="3" x2="21" y2="21" />
+          <line x1="21" y1="3" x2="3" y2="21" />
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal modal--animate-scale flex flex-center bg-black bg-opacity-90% padding-md js-modal" id="modal-form">
+    <div
+      class="modal__content width-100% max-width-xs max-height-100% overflow-auto padding-md bg radius-md inner-glow shadow-md"
+      role="alertdialog" aria-labelledby="modal-form-title" aria-describedby="modal-form-description">
+      <div class="text-component margin-bottom-md">
+        <h3 id="modal-form-title">Add product</h3>
+        <!-- <p id="modal-form-description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit asperiores
+          molestiae ex.</p> -->
+      </div>
+
+      <form class="margin-bottom-sm" id="product_form">
+        <div class="flex flex-column gap-xxxs">
+          <input class="form-control flex-grow" type="text" placeholder="Product Name" id="_p_name">
+          <input class="form-control flex-grow" type="number" placeholder="Price" id="_p_price">
+          <textarea class="form-control flex-grow" type="number" placeholder="Product description"
+            id="_p_description"></textarea>
+          <input class="form-control flex-grow" type="color" id="_p_color">
+          <input type="file" id="_p_file">
+          <button class="btn btn--primary">Add</button>
+        </div>
+      </form>
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Close modal window</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="3" x2="21" y2="21" />
+          <line x1="21" y1="3" x2="3" y2="21" />
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal modal--animate-scale flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+    id="modal-product-variant">
+    <div
+      class="modal__content width-100% max-width-xs max-height-100% overflow-auto padding-md bg radius-md inner-glow shadow-md"
+      role="alertdialog" aria-labelledby="modal-form-title" aria-describedby="modal-form-description">
+      <div class="text-component margin-bottom-md">
+        <h3 id="modal-form-title">Add Product Variant</h3>
+      </div>
+
+      <div class="margin-bottom-sm">
+        <div class="flex flex-column gap-xs">
+          <input type="file" id="_p_v_file">
+          <input class="form-control flex-grow" type="color" id="_p_v_color">
+          <button class="btn btn--primary" id="btn_add_variant">Add Variant</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Close modal window</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="3" x2="21" y2="21" />
+          <line x1="21" y1="3" x2="3" y2="21" />
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal modal--animate-scale flex flex-center bg-black bg-opacity-90% padding-md js-modal"
+    id="modal-category-add">
+    <div
+      class="modal__content width-100% max-width-xs max-height-100% overflow-auto padding-md bg radius-md inner-glow shadow-md"
+      role="alertdialog" aria-labelledby="modal-form-title" aria-describedby="modal-form-description">
+      <form class="margin-bottom-sm" id="category_form">
+        <div class="flex flex-column gap-xxxs">
+          <div class="text-component margin-bottom-md">
+            <h3>Category Name</h3>
+          </div>
+
+          <input class="form-control flex-grow" type="text" placeholder="Category Name" id="_category_name">
+
+          <div class="text-component margin-bottom-md">
+            <h3>Add first product</h3>
+          </div>
+
+          <input class="form-control flex-grow" type="text" placeholder="Product Name" id="_c_p_name">
+          <input class="form-control flex-grow" type="number" placeholder="Price" id="_c_p_price">
+          <textarea class="form-control flex-grow" type="number" placeholder="Product description"
+            id="_c_p_description"></textarea>
+          <input class="form-control flex-grow" type="color" id="_c_p_color">
+
+          <input type="file" id="_c_p_file">
+
+          <button class="btn btn--primary">Add</button>
+        </div>
+      </form>
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Close modal window</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="3" x2="21" y2="21" />
+          <line x1="21" y1="3" x2="3" y2="21" />
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <div class="modal modal--animate-scale bg bg-opacity-90% flex flex-center padding-md js-modal" id="modal-auth">
+    <div class="modal__content max-width-xs max-height-100% overflow-auto padding-md" role="alertdialog"
+      aria-labelledby="modal-select-title" aria-describedby="">
+      <p class="color-contrast-medium margin-bottom-xs" id="modal-select-title">Select an option:</p>
+
+      <div class="margin-bottom-xs">
+        <input id="email" type="email" placeholder="Email" class="form-control width-100%">
+      </div>
+      <div class="margin-bottom-xxs">
+        <input id="password" type="password" placeholder="Password" class="form-control width-100%">
+      </div>
+
+      <div class="width-100% flex justify-end">
+        <button class="btn btn--primary btn--md" id="btnLogin">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn-ec853.web.app/js/ui-v2.js"></script>
+  <script src="https://cdn-ec853.web.app/js/scripts.min.js"></script>
+</body>
+
+</html>
