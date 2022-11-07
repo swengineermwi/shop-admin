@@ -18,9 +18,10 @@
   },
   "dependencies": {
     "css-loader": "^6.6.0",
-    "firebase": "^9.6.9",
+    "firebase": "^9.12.1",
     "html-webpack-plugin": "^5.5.0",
     "lodash": "^4.17.21",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0"
   }
 }

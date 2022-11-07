@@ -28,7 +28,7 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, '../../shop-admin'),
+    path: path.resolve(__dirname, 'public'),
   },
   experiments: {
     topLevelAwait: true

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "marcstorezm"
+  },
+  "targets": {
+    "marcstorezm": {
+      "hosting": {
+        "admin": [
+          "admin-8fb8e"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

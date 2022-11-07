@@ -9,13 +9,13 @@ import { g, openModal, openModal_v2 } from './js/utils';
 import shop from './shop';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAOoPVb11afNm662MKAbX5IfFsXf-0LRss",
-  authDomain: "theecraftysoul-6efc7.firebaseapp.com",
-  projectId: "theecraftysoul-6efc7",
-  storageBucket: "theecraftysoul-6efc7.appspot.com",
-  messagingSenderId: "81244087155",
-  appId: "1:81244087155:web:c695e6403393eae483db06",
-  measurementId: "G-CY91DEXG3D"
+  apiKey: "AIzaSyD3Wht_d_b-uJiNUKUb7fcOF-lujMMifKw",
+  authDomain: "marcstorezm.firebaseapp.com",
+  projectId: "marcstorezm",
+  storageBucket: "marcstorezm.appspot.com",
+  messagingSenderId: "695355469113",
+  appId: "1:695355469113:web:8c8986c2fa3abb84990ce8",
+  measurementId: "G-8527HXBTG8"
 };
 
 initializeApp(firebaseConfig);
@@ -38,6 +38,7 @@ onAuthStateChanged(auth, async (user) => {
       (e) => { },
       (e) => {
         function handler() {
+
           function upload(uploadCallback) {
             var x = g("upload1");
 
@@ -45,6 +46,7 @@ onAuthStateChanged(auth, async (user) => {
               if (x.files.length == 0) { alert("Select file") }
               else {
                 var file = x.files[0];
+
                 var fileName = "";
 
                 if ('name' in file) {
@@ -105,6 +107,7 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         g("btnAddProduct").addEventListener("click", handler);
+
         openModal_v2("modal-add_product", () => { g("btnAddProduct").removeEventListener("click", handler); })
       }
     )
