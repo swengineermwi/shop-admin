@@ -30,18 +30,18 @@ const editable = (product) => {
   return card
 }
 
-function categoryUi(key, products, addProductCallback) {
+export function categoryUi(key, products, addProductCallback) {
   const grid = c("div", "grid items-center")
   const headingCol = c("div", "col-6")
   const actionCol = c("div", "col-6 flex justify-end")
   const productsCol = c("div", "grid gap-sm padding-y-md")
 
-  for (const key in products) {
-    if (Object.hasOwnProperty.call(products, key)) {
-      const product = products[key];
-      productsCol.appendChild(editable(product))
-    }
-  }
+  // for (const key in products) {
+  //   if (Object.hasOwnProperty.call(products, key)) {
+  //     const product = products[key];
+  //     productsCol.appendChild(editable(product))
+  //   }
+  // }
 
   const heading = c("h3")
 
@@ -65,6 +65,7 @@ function categoryUi(key, products, addProductCallback) {
 const shop = (categories, deleteCallback, addProductCallback) => {
   const categoriesArea = g("categories")
   categoriesArea.innerHTML = ""
+
   categories.forEach(category => {
     categoriesArea.appendChild(categoryUi(category.id, category.products, (e) => addProductCallback(e)))
   });

@@ -3,10 +3,11 @@ import './js/scripts'
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, query, collection, getDocs, doc, updateDoc, serverTimestamp } from 'firebase/firestore'
+import { getFirestore, query, collection, getDocs, doc, updateDoc, serverTimestamp, setDoc, getDoc } from 'firebase/firestore'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { g, openModal, openModal_v2 } from './js/utils';
-import shop from './shop';
+import shop, { categoryUi } from './shop';
+import { form } from '../../utils'
 
 const firebaseConfig = {
   apiKey: "AIzaSyD3Wht_d_b-uJiNUKUb7fcOF-lujMMifKw",
@@ -26,94 +27,125 @@ const storage = getStorage();
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    const querySnapshot = await getDocs(query(collection(db, "categories")))
-    shop(querySnapshot.docs.map((snapshot) => {
-      const data = {
-        products: snapshot.data(),
-        id: snapshot.id
-      }
+    getDoc(doc(db, 'system/categories'))
+      .then((snapshot) => {
+        const data = snapshot.data()
 
-      return data
-    }),
-      (e) => { },
-      (e) => {
-        function handler() {
-
-          function upload(uploadCallback) {
-            var x = g("upload1");
-
-            if ('files' in x) {
-              if (x.files.length == 0) { alert("Select file") }
-              else {
-                var file = x.files[0];
-
-                var fileName = "";
-
-                if ('name' in file) {
-                  fileName += file.name;
-                }
-
-                if ('size' in file) {
-                  fileName += file.size + " bytes";
-                }
-
-                const storageRef = ref(storage, fileName);
-                const uploadTask = uploadBytesResumable(storageRef, file);
-
-                uploadTask.on('state_changed', (snapshot) => {
-                  // Observe state change events such as progress, pause, and resume
-                  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  console.log('Upload is ' + progress + '% done');
-                  switch (snapshot.state) {
-                    case 'paused':
-                      console.log('Upload is paused');
-                      break;
-                    case 'running':
-                      console.log('Upload is running');
-                      break;
-                  }
-                },
-                  (error) => {
-                    // Handle unsuccessful uploads
-                  },
-                  () => {
-                    // Handle successful uploads on complete
-                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                    getDownloadURL(uploadTask.snapshot.ref).then(uploadCallback);
-                  }
-                );
-              }
-            } else { alert("Select file") }
-          }
-
-          const pName = g("pName").value
-          const pPrice = g("pPrice").value
-          const pDescription = g("pDescription").value
-
-          if (pName !== '' && pPrice !== '' && pDescription !== '') {
-            upload(async (downloadURL) => {
-              await updateDoc(doc(db, "categories", e.target.value), {
-                [pName]: {
-                  name: pName,
-                  price: parseFloat(pPrice),
-                  description: pDescription,
-                  image: downloadURL,
-                  timestamp: serverTimestamp()
-                }
-              }).then(() => window.location.reload())
-            })
+        for (const key in data) {
+          if (data.hasOwnProperty.call(data, key)) {
+            // const element = data[key];
+            const categoriesArea = g("categories")
+            categoriesArea.innerHTML = ""
+            
+            categoriesArea.appendChild(categoryUi(key, {}, (e)=>{
+              
+            }))
+            // categories.forEach(category => {
+            //   categoriesArea.appendChild(categoryUi(category.id, category.products, (e) => addProductCallback(e)))
+            // });
           }
         }
+      })
+    // const querySnapshot = await getDocs(query(collection(db, "categories")))
 
-        g("btnAddProduct").addEventListener("click", handler);
+    // shop(
+    //   querySnapshot
+    //     .docs
+    //     .map((snapshot) => {
+    //       const data = {
+    //         products: snapshot.data(),
+    //         id: snapshot.id
+    //       }
+    //       return data
+    //     }),
+    //   (e) => { },
+    //   (e) => {
+    //     function handler() {
 
-        openModal_v2("modal-add_product", () => { g("btnAddProduct").removeEventListener("click", handler); })
-      }
-    )
+    //       function upload(uploadCallback) {
+    //         var x = g("upload1");
+
+    //         if ('files' in x) {
+    //           if (x.files.length == 0) { alert("Select file") }
+    //           else {
+    //             var file = x.files[0];
+
+    //             var fileName = "";
+
+    //             if ('name' in file) {
+    //               fileName += file.name;
+    //             }
+
+    //             if ('size' in file) {
+    //               fileName += file.size + " bytes";
+    //             }
+
+    //             const storageRef = ref(storage, fileName);
+    //             const uploadTask = uploadBytesResumable(storageRef, file);
+
+    //             uploadTask.on('state_changed', (snapshot) => {
+    //               // Observe state change events such as progress, pause, and resume
+    //               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    //               const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //               console.log('Upload is ' + progress + '% done');
+    //               switch (snapshot.state) {
+    //                 case 'paused':
+    //                   console.log('Upload is paused');
+    //                   break;
+    //                 case 'running':
+    //                   console.log('Upload is running');
+    //                   break;
+    //               }
+    //             },
+    //               (error) => {
+    //                 // Handle unsuccessful uploads
+    //               },
+    //               () => {
+    //                 // Handle successful uploads on complete
+    //                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+    //                 getDownloadURL(uploadTask.snapshot.ref).then(uploadCallback);
+    //               }
+    //             );
+    //           }
+    //         } else { alert("Select file") }
+    //       }
+
+    //       const pName = g("pName").value
+    //       const pPrice = g("pPrice").value
+    //       const pDescription = g("pDescription").value
+
+    //       if (pName !== '' && pPrice !== '' && pDescription !== '') {
+    //         upload(async (downloadURL) => {
+    //           await updateDoc(doc(db, "categories", e.target.value), {
+    //             [pName]: {
+    //               name: pName,
+    //               price: parseFloat(pPrice),
+    //               description: pDescription,
+    //               image: downloadURL,
+    //               timestamp: serverTimestamp()
+    //             }
+    //           }).then(() => window.location.reload())
+    //         })
+    //       }
+    //     }
+
+    //     g("btnAddProduct").addEventListener("click", handler);
+    //     openModal_v2("modal-add_product", () => { g("btnAddProduct").removeEventListener("click", handler); })
+    //   }
+    // )
 
     g("btnAddCategory").addEventListener("click", () => openModal_v2("modal-add_category"))
-    g("btnAddCat").addEventListener("click", async () => { await setDoc(doc(db, "categories", g("cName").value), {}).then(() => window.location.reload()) })
+
+    form('_category', async (data) => {
+      setDoc(
+        doc(db, 'system/categories'), {
+        [data.category]: ""
+      },
+        {
+          merge: true
+        }
+      ).then(() => { location.reload() })
+    })
   } else {
     function foo() {
       openModal(g('modal-auth'), () => {
@@ -122,12 +154,6 @@ onAuthStateChanged(auth, async (user) => {
         }
       })
     }
-
-    // ! comment
-    // * comment
-    // ? comment
-    // TODO: comment
-    // comment
 
     g('btnLogin').addEventListener('click', (e) => {
       e.target.disabled = true
