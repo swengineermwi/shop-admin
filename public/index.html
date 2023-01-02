@@ -62,14 +62,16 @@
     class="modal modal--animate-scale bg bg-opacity-90% flex flex-center padding-md js-modal">
     <div class="modal__content max-width-xs max-height-100% overflow-auto padding-md text-center" role="alertdialog"
       aria-labelledby="modal-select-title" aria-describedby="">
-      <p class="color-contrast-medium margin-bottom-xs" id="modal-select-title">Category</p>
+      <form id="_category">
+        <p class="color-contrast-medium margin-bottom-xs" id="modal-select-title">Add Category</p>
 
-      <div class="margin-bottom-xs">
-        <input id="cName" type="text" placeholder="Name" class="form-control">
-      </div>
-      <div class="margin-bottom-xs">
-        <button class="btn btn--primary width-100%" id="btnAddCat">Add</button>
-      </div>
+        <div class="margin-bottom-xs">
+          <input type="text" name="category" placeholder="Name" class="form-control">
+        </div>
+        <div class="margin-bottom-xs">
+          <button class="btn btn--primary width-100%" >Add</button>
+        </div>
+      </form>
     </div>
 
     <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
